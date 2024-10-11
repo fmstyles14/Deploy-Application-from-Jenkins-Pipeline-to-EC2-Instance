@@ -1,23 +1,35 @@
-#!/usr/bin.env groovy
+#!/usr/bin/env groovy
 
-pipeline {   
+library identifier: 'jenkins-shared-library@main', retriever:modernSCM(
+    [$class:'GitSCMSource',
+    remote: 'https://github.com/fmstyles14/jenkins-shared-library.git',
+    credentialsId:'jenkinsCred'])
+
+pipeline {
     agent any
+    tools {
+        maven 'maven-3.9.9'
+    }
+    environment {
+        IMAGE_NAME = 'fmstyles/my-app:1.0'
+    }
     stages {
-        stage("test") {
+        stage('build app') {
             steps {
-                script {
-                    echo "Testing the application..."
-
-                }
+                echo 'building application jar...'
+                buildJar()
             }
         }
-        stage("build") {
+        stage('build image') {
             steps {
                 script {
-                    echo "Building the application..."
+                    echo 'building the docker image...'
+                    buildImage(env.IMAGE_NAME)
+                    dockerLogin()
+                    dockerPush(env.IMAGE_NAME)
                 }
             }
-        }
+        } 
 
         stage("deploy") {
             steps {
