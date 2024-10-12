@@ -10,7 +10,7 @@ pipeline {
     tools {
         maven 'maven-3.9.9'
     }
-    stages{
+ stages{
        stage('Increment version') {
          steps {
             script {
@@ -74,8 +74,7 @@ pipeline {
                        sh 'git commit -m "ci:version bump"'
                        sh ' git push origin HEAD:main'
 
-                      }
-                     }
-                  }
-              }
-    }
+                   }
+                }
+         }
+   }
