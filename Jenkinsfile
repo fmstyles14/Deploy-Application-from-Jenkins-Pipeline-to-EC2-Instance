@@ -24,15 +24,14 @@ pipeline {
          }
       }
    }
-
-    stage {
         stage('build app') {
-            steps {
+           steps {
+             script {
                 echo 'building application jar...'
                 buildJar()
             }
-        }
-     }
+          }
+       }
         stage('build image') {
             steps {
                 script {
