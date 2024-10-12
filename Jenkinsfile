@@ -32,6 +32,7 @@ pipeline {
                 buildJar()
             }
         }
+     }
         stage('build image') {
             steps {
                 script {
