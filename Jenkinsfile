@@ -25,7 +25,7 @@ pipeline {
       }
    }
 
-    stages {
+    stage {
         stage('build app') {
             steps {
                 echo 'building application jar...'
@@ -78,5 +78,5 @@ pipeline {
                 }
           }
     }
-} 
-}    
+}
+}
